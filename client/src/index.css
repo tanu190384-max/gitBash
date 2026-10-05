@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * RESQ design tokens.
+ *
+ * Neutral surfaces carry the UI; colour is reserved for meaning. Severity and
+ * status are the only things allowed to be loud, so a CRITICAL badge reads
+ * instantly instead of competing with decorative accents.
+ *
+ * Values are bare HSL channels (`H S% L%`) so Tailwind can apply opacity
+ * modifiers such as `bg-primary/10`.
+ */
+
+@layer base {
+  :root {
+    /* Light theme — supported, but dark is the product default. */
+    --background: 210 40% 98%;
+    --foreground: 215 28% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 12%;
+
+    --primary: 199 89% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 214 32% 94%;
+    --secondary-foreground: 215 25% 22%;
+
+    --muted: 214 32% 94%;
+    --muted-foreground: 215 16% 44%;
+
+    --accent: 199 89% 95%;
+    --accent-foreground: 199 89% 28%;
+
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 24% 88%;
+    --input: 214 24% 88%;
+    --ring: 199 89% 42%;
+
+    /* Emergency states — green → amber → orange → red. */
+    --severity-low: 152 60% 34%;
+    --severity-moderate: 38 92% 42%;
+    --severity-high: 21 90% 46%;
+    --severity-critical: 0 76% 48%;
+
+    --radius: 0.65rem;
+  }
+
+  .dark {
+    /* Dark theme — slightly blue-shifted neutrals read as calmer than pure
+       grey on the large dark surfaces of the admin console. */
+    --background: 213 30% 7%;
+    --foreground: 210 20% 94%;
+
+    --card: 213 26% 10%;
+    --card-foreground: 210 20% 94%;
+
+    --popover: 213 28% 9%;
+    --popover-foreground: 210 20% 94%;
+
+    --primary: 199 89% 52%;
+    --primary-foreground: 213 35% 8%;
+
+    --secondary: 213 20% 17%;
+    --secondary-foreground: 210 20% 92%;
+
+    --muted: 213 20% 15%;
+    --muted-foreground: 214 14% 62%;
+
+    --accent: 199 60% 18%;
+    --accent-foreground: 199 89% 78%;
+
+    --destructive: 0 68% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 18% 20%;
+    --input: 213 18% 22%;
+    --ring: 199 89% 52%;
+
+    /* Lifted lightness so each band keeps contrast against dark surfaces. */
+    --severity-low: 152 52% 46%;
+    --severity-moderate: 38 92% 56%;
+    --severity-high: 21 90% 58%;
+    --severity-critical: 0 84% 62%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    /* Respect notches on mobile, where the reporting flow is used most. */
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* A visible, consistent focus ring everywhere — forms here get used under
+     stress, sometimes one-handed, and must stay keyboard-navigable. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  ::selection {
+    @apply bg-primary/25;
+  }
+
+  /* Tabular figures keep dashboard counters from jittering as they update. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Subtle grid used behind hero and empty states. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.4) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 50%, transparent 100%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  /* Thin, theme-aware scrollbars for the long incident tables. */
+  .scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .scrollbar-slim::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+  }
+  .scrollbar-slim::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
