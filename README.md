@@ -1,8 +1,6 @@
 # RESQ — AI-Powered Disaster Assessment & Emergency Response System
 
-RESQ is an emergency-management platform. People report disasters from the field; a
-deterministic assessment engine scores each incident for severity, identifies risk
-factors and recommends resources and actions; coordinators verify, assign and track
+nd track
 the response from an admin console.
 
 The core flow the product is built around:
