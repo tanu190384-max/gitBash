@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="RESQ — report emergencies, assess disaster severity, coordinate resources and monitor response from one unified platform."
+    />
+    <meta name="theme-color" content="#0b0f14" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea5e9'/%3E%3Cpath d='M16 7l7 4v6c0 4.2-2.9 7.6-7 8.6-4.1-1-7-4.4-7-8.6v-6l7-4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <title>RESQ — Disaster Assessment & Emergency Response</title>
+    <script>
+      // Apply the saved theme before first paint so there is no flash of the
+      // wrong palette. Dark is the product default.
+      (function () {
+        try {
+          var saved = localStorage.getItem('resq-theme');
+          var dark = saved ? saved === 'dark' : true;
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {
+          /* private mode / blocked storage — keep the dark default */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div style="padding: 24px; font-family: system-ui, sans-serif">
+        RESQ needs JavaScript enabled. For an emergency right now, call 112.
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
