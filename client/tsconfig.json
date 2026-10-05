@@ -7,7 +7,6 @@
     "jsx": "react-jsx",
     "useDefineForClassFields": true,
 
-    /* Vite owns emit — tsc is only ever used to typecheck. */
     "noEmit": true,
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
